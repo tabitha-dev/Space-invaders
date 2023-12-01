@@ -1,0 +1,237 @@
+:root {
+  --primary-color: #D32F2F;
+  /* Red shade for a vibrant look */
+  --secondary-color: #0095DD;
+  --background-color: #121212;
+  /* Dark gray for a modern look */
+  --text-color: #fff;
+  --button-hover-color: #B71C1C;
+  /* Darker shade of red for hover */
+  --high-score-color: #D32F2F;
+
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  /* Modern, clean font */
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  /* Align items in a column */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  /* Hide scroll bars */
+  position: relative;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  /* Stack children vertically */
+  align-items: center;
+  /* Center-align children horizontally */
+  justify-content: center;
+  /* Center-align children vertically */
+  max-width: 600px;
+  padding: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+
+  /* Glowing Effect */
+  box-shadow: 0 0 10px var(--primary-color),
+    /* Inner white glow */
+    0 0 20px var(--primary-color),
+    /* Middle red glow */
+    0 0 40px var(--primary-color);
+  /* Outer red glow */
+
+  transition: box-shadow 0.3s ease-in-out;
+  position: relative;
+}
+
+.game-container:hover {
+  /* Intensify the glow when hovering over the container */
+  box-shadow: 0 0 15px var(--primary-color),
+    0 0 30px var(--primary-color),
+    0 0 60px var(--primary-color);
+}
+
+
+#space-invaders-canvas {
+  margin-top: 20px;
+  /* Provide some space above the canvas */
+}
+
+#play-again-button {
+  margin-top: 20px;
+  display: none; 
+}
+
+
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  /* Added top margin for spacing */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 4px;
+  font-weight: bold;
+  /* Bold text for the button */
+}
+
+button:hover {
+  background-color: var(--button-hover-color);
+  transform: translateY(-3px);
+  /* Slight lift effect on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  /* Ensure spacing above the game view */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Subtle text shadow for depth */
+}
+
+/* Styles for score and high score */
+.score-container {
+  text-align: center;
+  color: var(--text-color);
+}
+
+#score,
+#high-score {
+  font-size: 1.2em;
+  margin: 5px 0;
+}
+
+/* High score specific style */
+#high-score {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: var(--high-score-color);
+  font-size: 1.2em;
+  z-index: 10;
+  /* Ensure it's above other elements */
+}
+
+/* Styles for the 'Game Over' and 'You Win' messages */
+.message {
+  font-size: 1.4em;
+  margin: 15px 0;
+  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 15px var(--primary-color), 0 0 20px var(--primary-color);
+  transition: text-shadow 0.3s ease-in-out;
+  display: none;
+  /* Initially hidden */
+}
+
+
+
+#game-over-message {
+  font-size: 1.4em;
+  color: var(--primary-color);
+  margin: 15px 0;
+  /* Space above and below the message */
+  text-shadow: 0 0 5px var(--primary-color),
+    /* Inner glow */
+    0 0 10px var(--primary-color),
+    /* Middle glow */
+    0 0 15px var(--primary-color),
+    /* Outer glow */
+    0 0 20px var(--primary-color);
+  /* Further glow */
+
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+#game-over-message.hidden {
+  display: none;
+  /* Intensify the glow when the message is visible */
+  text-shadow: 0 0 10px var(--primary-color),
+    0 0 20px var(--primary-color),
+    0 0 30px var(--primary-color),
+    0 0 40px var(--primary-color);
+}
+
+#game-win-message {
+  font-size: 1.4em;
+  color: #0095DD;
+  /* Blue color */
+  margin: 15px 0;
+  /* Space above and below the message */
+  text-shadow: 0 0 5px #0095DD,
+    0 0 10px #0095DD,
+    0 0 15px #0095DD,
+    0 0 20px #0095DD;
+  /* Glowing effect in blue */
+
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+#game-win-message.visible {
+  /* Intensify the glow when the message is visible */
+  text-shadow: 0 0 10px #0095DD,
+    0 0 20px #0095DD,
+    0 0 30px #0095DD,
+    0 0 40px #0095DD;
+}
+/* When either message is active */
+.message.visible {
+  display: block; /* Show the message */
+  text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color), 0 0 40px var(--primary-color);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.controls button {
+  padding: 10px;
+  margin: 0 5px;
+  /* Additional styling */
+}
+
+/* Media Query for Smaller Screens (e.g., Mobile) */
+@media (max-width: 600px) {
+  .game-container {
+    width: 100%;
+    max-width: none; /* Remove max-width */
+    padding: 10px; /* Adjust padding as needed */
+    margin: 0; /* Remove margin */
+    overflow: hidden;
+  }
+
+  #high-score {
+    font-size: 1em; /* Adjust font size if necessary */
+  }
+
+  .controls button {
+    padding: 15px 30px; /* Increased padding for larger touch targets */
+    font-size: 1.2em; /* Optional: Increase the font size for better readability */
+    margin: 10px 5px; /* Adjust margin for spacing */
+  }
+}
+
+/* Media Query for Larger Screens (e.g., Desktop) */
+@media (min-width: 1200px) {
+  .game-container {
+    max-width: 1200px;
+
+  }
+
+
+}
